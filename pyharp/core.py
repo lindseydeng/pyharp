@@ -174,6 +174,11 @@ def get_harp_component(gr_cmp: Component) -> HarpComponent:
 
     return harp_cmp
 
+
+def default_cancel_fn():
+    print("[pyharp] Cancel was triggered.")
+    return "Cancelled"
+
 def build_endpoint(model_card: ModelCard, input_components: list, output_components: list,
                    process_fn: callable) -> tuple:
     """
@@ -243,7 +248,7 @@ def build_endpoint(model_card: ModelCard, input_components: list, output_compone
     # Create a button to cancel processing
     cancel_button = gr.Button("Cancel")
     cancel_button.click(
-        fn=None,
+        fn=default_cancel_fn,
         inputs=[],
         outputs=[],
         api_name="cancel",
